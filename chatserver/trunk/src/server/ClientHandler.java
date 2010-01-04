@@ -105,7 +105,7 @@ public class ClientHandler extends Thread {
 		String input;
 		try {
 			while ((input = reader.readLine()) != null) {
-
+				logger.log(Level.INFO, "got input: " + input);
 				if (!admin) {
 					// business logic
 					if (input.startsWith("join ")) {
@@ -173,7 +173,7 @@ public class ClientHandler extends Thread {
 						"║create <roomname>║rename <oldname> <newname>║delete <roomname>║\n\r"+
 						"╚═════════════════╩══════════════════════════╩═════════════════╝\n\r";
 					
-					logger.log(Level.INFO, "Sending: " + msg);
+					logger.log(Level.FINEST, "Sending: " + msg);
 					sendMessage(msg,user);
 					String[] tokens = input.split(" ");
 					if(input.startsWith("passwd"))

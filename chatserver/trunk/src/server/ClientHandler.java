@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ClientHandler extends Thread {
+	
 	private final Logger logger = Logger.getLogger(getClass().getName());
 	private Socket socket;
 	private Dispatcher dispatcher;
@@ -69,7 +70,7 @@ public class ClientHandler extends Thread {
 			dispatcher.incrementClients();
 			try {
 				reader = new BufferedReader(new InputStreamReader(socket
-						.getInputStream()));
+						.getInputStream(), Server.TEXT_ENCODING));
 				writer = new PrintWriter(socket.getOutputStream(), true);
 				writer.println("connected at " + sdf.format(new Date()) + "\n");
 				printServerRooms();
@@ -158,14 +159,22 @@ public class ClientHandler extends Thread {
 						logger.log(Level.INFO, "wrong admin passwd");						
 						continue;
 					}
-					sendMessage("Admin Menu:\n\r" +
-							"Change Password: passwd <newpassword>\n\r" +
-							"Room Commands:\n\r" +
-							"Create: create <roomname>\n\r" +
-							"Rename: rename <oldname> <newname>\n\r" +
-							"Delete: delete <roomname>\n\r" +
-							"List logs: logs",
-							user);
+					String msg =
+						"╔═══════════════╗\n\r"+
+						"╠Admin Menu═════╣\n\r" +
+						"╠═══════════════╬═══════════╦══════════════╗\n\r"+
+						"╠Change Password╬System Logs╬List All Rooms╣\n\r"+
+						"║passwd         ║logs       ║rooms         ║\n\r"+
+						"╚═══════════════╩═══════════╩══════════════╝\n\r"+
+						"╔═════════════════╗\n\r" +
+						"╠Room Commands════╣\n\r" +
+						"╠═════════════════╬══════════════════════════╦═════════════════╗\n\r"+
+						"╠Create Room══════╬Rename Room═══════════════╬Delete Room══════╣\n\r"+
+						"║create <roomname>║rename <oldname> <newname>║delete <roomname>║\n\r"+
+						"╚═════════════════╩══════════════════════════╩═════════════════╝\n\r";
+					
+					logger.log(Level.INFO, "Sending: " + msg);
+					sendMessage(msg,user);
 					String[] tokens = input.split(" ");
 					if(input.startsWith("passwd"))
 					{

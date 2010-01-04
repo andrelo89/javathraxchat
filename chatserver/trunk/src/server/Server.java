@@ -11,6 +11,7 @@ public class Server {
 	public static final int ADMIN_LISTEN_PORT = 6666;
 	public static final int LISTEN_PORT = 3333;
 	public static final int MAX_CLIENTS = 1000;
+	public static final String TEXT_ENCODING = "UTF-8";
 	
 	private static List<String> rooms;
 	public static void main(String[] args) {

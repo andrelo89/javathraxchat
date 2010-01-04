@@ -111,10 +111,8 @@ public class Dispatcher implements Runnable {
 	public void roomInfo(String string, User user) {
 		for (ClientHandler clientHandler : clientHandlers)
 			if (!clientHandler.getUser().equals(user)) {
-				if (clientHandler.getUser().getCurrentRoom() != null
-						&& user.getCurrentRoom() != null)
-					if (clientHandler.getUser().getCurrentRoom()
-							.equalsIgnoreCase(user.getCurrentRoom()))
+				if (clientHandler.getUser().getCurrentRoom() != null && user.getCurrentRoom() != null)
+					if (clientHandler.getUser().getCurrentRoom().equalsIgnoreCase(user.getCurrentRoom()))
 						clientHandler.sendMessage(string, user);
 			}
 	}

@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 public class Dispatcher implements Runnable {
 
+	
 	private final Logger logger = Logger.getLogger (getClass().getName());
 	private ArrayList<ClientHandler> clientHandlers;  
 	private List<String> rooms;
@@ -51,7 +52,7 @@ public class Dispatcher implements Runnable {
 	private void init(int port, List<String> rooms) {
 		this.port = port;
 		try {
-			serverSocket = new ServerSocket(port);
+			serverSocket = new ServerSocket(port, Server.MAX_CLIENTS);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage() );
 			System.exit(0);
@@ -75,9 +76,9 @@ public class Dispatcher implements Runnable {
 		while (true) {
 			try {
 				Socket socket = serverSocket.accept();
-				if(serverSocket.getLocalPort() == 3333)
+				if(serverSocket.getLocalPort() == Server.LISTEN_PORT)
 					clientHandlers.add(new ClientHandler(socket, this, false));
-				else if(serverSocket.getLocalPort() == 6666)
+				else if(serverSocket.getLocalPort() == Server.ADMIN_LISTEN_PORT)
 					clientHandlers.add(new ClientHandler(socket, this, true));
 			} catch (Exception e) {
 				logger.log(Level.SEVERE, e.getMessage());

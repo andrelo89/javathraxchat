@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_15" class="java.beans.XMLDecoder"> 
+ <object class="server.Persister"> 
+  <void property="adminPassword"> 
+   <string>admin</string> 
+  </void> 
+  <void property="currentRooms"> 
+   <object class="java.util.ArrayList"> 
+    <void method="add"> 
+     <string>A</string> 
+    </void> 
+    <void method="add"> 
+     <string>B</string> 
+    </void> 
+    <void method="add"> 
+     <string>C</string> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 

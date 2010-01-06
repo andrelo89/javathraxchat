@@ -16,6 +16,10 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.mina.common.IdleStatus;
+import org.apache.mina.common.IoHandler;
+import org.apache.mina.common.IoSession;
+
 public class ClientHandler extends Thread {
 	
 	private final Logger logger = Logger.getLogger(getClass().getName());
@@ -70,7 +74,7 @@ public class ClientHandler extends Thread {
 			dispatcher.incrementClients();
 			try {
 				reader = new BufferedReader(new InputStreamReader(socket
-						.getInputStream(), Server.TEXT_ENCODING));
+						.getInputStream()));
 				writer = new PrintWriter(socket.getOutputStream(), true);
 				writer.println("connected at " + sdf.format(new Date()) + "\n");
 				printServerRooms();
@@ -95,8 +99,13 @@ public class ClientHandler extends Thread {
 		start();
 	}
 
+	public ClientHandler() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private void printServerRooms() {
-		writer.println("join any of the following rooms:\n");
+		writer.println("To join any of the following rooms\n\r" +
+				"type: join <roomname> <desired nickname> and hit enter\n\r");
 		for (String room : this.dispatcher.getRooms())
 			writer.println(room);
 	}
@@ -117,16 +126,21 @@ public class ClientHandler extends Thread {
 							user.setCurrentRoom(null);
 						}
 						String[] tokens = input.split(" ");
-						String secondToken = tokens[1].trim();
 
-						if (tokens[0].trim().equalsIgnoreCase("join")
-								&& dispatcher.hasRoom(secondToken)) {
-							user.setName(tokens[2].trim());
-							user.setCurrentRoom(secondToken);
-							dispatcher.roomInfo(user.getName()
-									+ " has joined the room", user);
-							sendMessage("you have joined room " + secondToken
-									+ "\n", user);
+						if (tokens.length > 1) {
+							String secondToken = tokens[1].trim();
+							if (tokens[0].trim().equalsIgnoreCase("join")
+									&& dispatcher.hasRoom(secondToken)) {
+								if (tokens.length < 3)
+									user.setName("Anonymous");
+								else
+									user.setName(tokens[2].trim());
+								user.setCurrentRoom(secondToken);
+								dispatcher.roomInfo(user.getName()
+										+ " has joined the room", user);
+								sendMessage("you have joined room "
+										+ secondToken + "\n", user);
+							}
 						}
 					} else if (input.startsWith("list channels"))
 						printServerRooms();
@@ -216,7 +230,8 @@ public class ClientHandler extends Thread {
 			reader.close();
 			socket.close();
 		} catch (Exception e) {
-			logger.log(Level.INFO, e.getMessage());
+			sendMessage("Disconnecting. See you Later...", user);
+			logger.log(Level.INFO, "exception caused client disconnect: " + e.getMessage());
 		}
 		dispatcher.removeClientHandler(this);
 	}
@@ -250,4 +265,5 @@ public class ClientHandler extends Thread {
 					+ e.getMessage());
 		}
 	}
+
 }

@@ -21,6 +21,7 @@ public class ClientsHandler extends IoHandlerAdapter {
 	private final Logger logger = Logger.getLogger(getClass().getName());
 	
 //	private Dispatcher dispatcher;
+	private List<IoSession> sessions = Collections.synchronizedList(new ArrayList<IoSession>());
 	private List<User> users = new ArrayList<User>();
 	private List<String> rooms = Collections.synchronizedList(new ArrayList<String>());
 	private boolean admin = false;
@@ -36,6 +37,7 @@ public class ClientsHandler extends IoHandlerAdapter {
 		super.sessionOpened(session);
 		User user = new User();
 		users.add( user);
+		sessions.add(session);
 		session.setAttribute("user", user);
 	}
 	public void messageReceived(IoSession session, Object objectMessage) throws Exception {
@@ -60,7 +62,7 @@ public class ClientsHandler extends IoHandlerAdapter {
 							+ user.getCurrentRoom(), session);
 					user.setCurrentRoom(null);
 				}
-				String[] tokens = input.split(" ");
+				String[] tokens = input.split(" ", 4);
 
 				if (tokens.length > 1) {
 					String secondToken = tokens[1].trim();
@@ -71,6 +73,7 @@ public class ClientsHandler extends IoHandlerAdapter {
 						else
 							user.setName(tokens[2].trim());
 						user.setCurrentRoom(secondToken);
+//						session.setAttribute("room", user.getCurrentRoom());
 						roomInfo(user.getName()
 								+ " has joined the room", user);
 						sendMessage("you have joined room "
@@ -86,7 +89,7 @@ public class ClientsHandler extends IoHandlerAdapter {
 				user.setCurrentRoom(null);
 			} else if (input.startsWith("quit")) {
 				sendMessage("bye", session);
-				//TODO quittin time
+				session.close();
 			} else if (input.startsWith("@{")) {
 				String input2 = input.substring(2);
 				String message = input
@@ -96,7 +99,7 @@ public class ClientsHandler extends IoHandlerAdapter {
 				
 				sendToUsers(Arrays.asList(users), message, session);
 			} else
-				roomChat(input, user, session);
+				roomChat(input, user);
 		} else {
 			if(input.equalsIgnoreCase(getCurrentPassword()))
 			{
@@ -169,11 +172,13 @@ public class ClientsHandler extends IoHandlerAdapter {
 				sendMessage(message, session);
 	}
 
-	private void roomChat(String input, User user2, IoSession session) {
-		for(User u : users)
-		{
-			if(u.getCurrentRoom().equals(user2.getCurrentRoom()))
-				sendMessage(input, session);
+	private void roomChat(String input, User user2) {
+		synchronized (sessions) {
+			for (IoSession session : sessions) {
+				if ((session.getAttribute("room").toString().equals(user2
+						.getCurrentRoom())))
+					sendMessage(input, session);
+			}
 		}
 	}
 

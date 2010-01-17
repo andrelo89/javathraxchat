@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,16 +18,28 @@ import org.apache.mina.common.TransportType;
 import org.apache.mina.transport.socket.nio.SocketSessionConfig;
 
 public class ClientsHandler extends IoHandlerAdapter {
+	private static final String LINEFEED = "\r";
+
 	private final Logger logger = Logger.getLogger(getClass().getName());
-	
-//	private Dispatcher dispatcher;
-	private List<IoSession> sessions = Collections.synchronizedList(new ArrayList<IoSession>());
+
+	// private Dispatcher dispatcher;
+	private List<IoSession> sessions = Collections
+			.synchronizedList(new ArrayList<IoSession>());
 	private List<User> users = new ArrayList<User>();
-	private List<String> rooms = Collections.synchronizedList(new ArrayList<String>());
+	private List<String> rooms = Collections
+			.synchronizedList(new ArrayList<String>());
 	private boolean admin = false;
 	private boolean loggedIn = false;
-	
-	public void exceptionCaught(IoSession session, Throwable t) throws Exception {
+
+	private String adminsPasswd;
+
+	public ClientsHandler(Persister p) {
+		rooms = p.getCurrentRooms();
+		adminsPasswd = p.getAdminPassword();
+	}
+
+	public void exceptionCaught(IoSession session, Throwable t)
+			throws Exception {
 		t.printStackTrace();
 		session.close();
 	}
@@ -36,30 +48,38 @@ public class ClientsHandler extends IoHandlerAdapter {
 	public void sessionOpened(IoSession session) throws Exception {
 		super.sessionOpened(session);
 		User user = new User();
-		users.add( user);
+		users.add(user);
 		sessions.add(session);
 		session.setAttribute("user", user);
+
+		Date date = new Date();
+		session.write(date.toString()
+				+ "\n\rTo join any of the following rooms\n\r"
+				+ "type: join <roomname> <desired nickname> and hit enter\n\r");
+		printServerRooms(session);
 	}
-	public void messageReceived(IoSession session, Object objectMessage) throws Exception {
+
+	public void messageReceived(IoSession session, Object objectMessage)
+			throws Exception {
 		String input = objectMessage.toString();
-//		if( input.trim().equalsIgnoreCase("quit") ) {
-//			session.close();
-//			return;
-//		}
-//
-//		Date date = new Date();
-//		session.write( date.toString() );
-		
+		if (input.trim().equalsIgnoreCase("quit")) {
+			session.close();
+			return;
+		}
+
 		User user = (User) session.getAttribute("user");
-		
+		if (input.startsWith("admin "))
+			admin = true;
+
 		if (!admin) {
 			// business logic
 			if (input.startsWith("join ")) {
 				if (user.getCurrentRoom() != null) {
-					roomInfo("user " + user.getName()
-							+ " has left the room", user);
-					sendMessage("autoleft room "
-							+ user.getCurrentRoom(), session);
+					sendMessage(
+							"user " + user.getName() + " has left the room",
+							session);
+					sendMessage("autoleft room " + user.getCurrentRoom(),
+							session);
 					user.setCurrentRoom(null);
 				}
 				String[] tokens = input.split(" ", 4);
@@ -73,18 +93,18 @@ public class ClientsHandler extends IoHandlerAdapter {
 						else
 							user.setName(tokens[2].trim());
 						user.setCurrentRoom(secondToken);
-//						session.setAttribute("room", user.getCurrentRoom());
-						roomInfo(user.getName()
-								+ " has joined the room", user);
-						sendMessage("you have joined room "
-								+ secondToken + "\n", session);
+						session.setAttribute("room", user.getCurrentRoom());
+						sendMessage(user.getName() + " has joined the room",
+								session);
+						sendMessage("you have joined room " + secondToken
+								+ "\n", session);
 					}
 				}
 			} else if (input.startsWith("list channels"))
-				printServerRooms();
+				printServerRooms(session);
 			else if (input.startsWith("exit")) {
-				roomInfo("user " + user.getName()
-						+ " has left the room", user);
+				sendMessage("user " + user.getName() + " has left the room",
+						session);
 				sendMessage("you have left the room", session);
 				user.setCurrentRoom(null);
 			} else if (input.startsWith("quit")) {
@@ -92,71 +112,74 @@ public class ClientsHandler extends IoHandlerAdapter {
 				session.close();
 			} else if (input.startsWith("@{")) {
 				String input2 = input.substring(2);
-				String message = input
-						.substring(input2.indexOf('}') + 3);
+				String message = input.substring(input2.indexOf('}') + 3);
 
 				String[] users = input2.split(",");
-				
+
 				sendToUsers(Arrays.asList(users), message, session);
 			} else
 				roomChat(input, user);
 		} else {
-			if(input.equalsIgnoreCase(getCurrentPassword()))
-			{
+			if (input.split(" ")[1].equalsIgnoreCase(getCurrentPassword())) {
 				loggedIn = true;
-				logger.log(Level.INFO, "admin logged in");						
+				logger.log(Level.INFO, "admin logged in");
 			}
-			if(!loggedIn)
-			{
-				sendMessage("incorrect password\n", session);
-				logger.log(Level.INFO, "wrong admin passwd");						
-				//TODO logged in
+			if (!loggedIn) {
+				sendMessage("incorrect password", session);
+				logger.log(Level.INFO, "wrong admin passwd");
+				return;
 			}
-			String msg =
-				"╔═══════════════╗\n\r"+
-				"╠Admin Menu═════╣\n\r" +
-				"╠═══════════════╬═══════════╦══════════════╗\n\r"+
-				"╠Change Password╬System Logs╬List All Rooms╣\n\r"+
-				"║passwd         ║logs       ║rooms         ║\n\r"+
-				"╚═══════════════╩═══════════╩══════════════╝\n\r"+
-				"╔═════════════════╗\n\r" +
-				"╠Room Commands════╣\n\r" +
-				"╠═════════════════╬══════════════════════════╦═════════════════╗\n\r"+
-				"╠Create Room══════╬Rename Room═══════════════╬Delete Room══════╣\n\r"+
-				"║create <roomname>║rename <oldname> <newname>║delete <roomname>║\n\r"+
-				"╚═════════════════╩══════════════════════════╩═════════════════╝\n\r";
-			
+//			String msg = "╔===============|\n\r"
+//				+ "╠Admin Menu=====|\n\r"
+//				+ "╠===============|===========|==============|\n\r"
+//				+ "╠Change Password|System Logs|List All Rooms|\n\r"
+//				+ "║passwd         ║logs       ║rooms         ║\n\r"
+//				+ "|===============|===========|==============|\n\r"
+//				+ "╔=================|\n\r"
+//				+ "╠Room Commands====|\n\r"
+//				+ "╠=================|==========================|=================|\n\r"
+//				+ "╠Create Room======|Rename Room===============|Delete Room======|\n\r"
+//				+ "║create <roomname>║rename <oldname> <newname>║delete <roomname>║\n\r"
+//				+ "|=================|==========================|=================|\n\r";
+			String msg =  "|===============|\n\r"
+						+ "|Admin Menu=====|\n\r"
+						+ "|===============|===========|==============|\n\r"
+						+ "|Change Password|System Logs|List All Rooms|\n\r"
+						+ "|passwd         |logs       |rooms         |\n\r"
+						+ "|===============|===========|==============|\n\r"
+						+ "|=================|\n\r"
+						+ "|Room Commands====|\n\r"
+						+ "|=================|==========================|=================|\n\r"
+						+ "|Create Room======|Rename Room===============|Delete Room======|\n\r"
+						+ "|create <roomname>|rename <oldname> <newname>|delete <roomname>|\n\r"
+						+ "|=================|==========================|=================|\n\r";
+
 			logger.log(Level.FINEST, "Sending: " + msg);
-			sendMessage(msg,session);
+			sendMessage(msg, session);
 			String[] tokens = input.split(" ");
-			if(input.startsWith("passwd"))
-			{
+			if (input.startsWith("passwd")) {
 				setCurrentPassword(tokens[1].trim());
-				logger.log(Level.INFO, "admin changed passwd to " + getCurrentPassword());
-			}
-			else if(input.startsWith("create"))
-			{
+				logger.log(Level.INFO, "admin changed passwd to "
+						+ getCurrentPassword());
+			} else if (input.startsWith("create")) {
 				createRoom(tokens[1].trim());
-				logger.log(Level.INFO, "admin created new room: " + tokens[1].trim());
-			}
-			else if(input.startsWith("rename"))
-			{
+				logger.log(Level.INFO, "admin created new room: "
+						+ tokens[1].trim());
+			} else if (input.startsWith("rename")) {
 				renameRoom(tokens[1].trim(), tokens[2].trim());
-				logger.log(Level.INFO, "admin renamed room: " + tokens[1].trim() + " to: " + tokens[2].trim() );
-			}
-			else if(input.startsWith("delete"))
-			{
+				logger.log(Level.INFO, "admin renamed room: "
+						+ tokens[1].trim() + " to: " + tokens[2].trim());
+			} else if (input.startsWith("delete")) {
 				deleteRoom(tokens[1].trim());
-				logger.log(Level.INFO, "admin deleted room: " + tokens[1].trim() + ", users are now lonely and sad");
-			}
-			else if(input.startsWith("logs"))
-			{
+				logger.log(Level.INFO, "admin deleted room: "
+						+ tokens[1].trim() + ", users are now lonely and sad");
+			} else if (input.startsWith("logs")) {
 				sendMessage(getLogs(), session);
 				logger.log(Level.INFO, "admin requested log list");
 			}
-			
-			//save on every admin command
-			Persister p =  new Persister();
+
+			// save on every admin command
+			Persister p = new Persister();
 			p.setCurrentRooms(rooms);
 			p.setAdminPassword(getCurrentPassword());
 			XMLEncoder e = new XMLEncoder(new BufferedOutputStream(
@@ -166,9 +189,10 @@ public class ClientsHandler extends IoHandlerAdapter {
 		}
 	}
 
-	private void sendToUsers(List<String> list, String message, IoSession session) {
-		for(User u : users)
-			if(list.contains(u.getName()))
+	private void sendToUsers(List<String> list, String message,
+			IoSession session) {
+		for (User u : users)
+			if (list.contains(u.getName()))
 				sendMessage(message, session);
 	}
 
@@ -183,13 +207,11 @@ public class ClientsHandler extends IoHandlerAdapter {
 	}
 
 	private String getCurrentPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return adminsPasswd;
 	}
 
 	private void setCurrentPassword(String trim) {
-		// TODO Auto-generated method stub
-		
+		adminsPasswd = trim;
 	}
 
 	private void deleteRoom(String trim) {
@@ -197,33 +219,27 @@ public class ClientsHandler extends IoHandlerAdapter {
 	}
 
 	private void renameRoom(String trim, String trim2) {
-		synchronized(rooms)
-		{
+		synchronized (rooms) {
 			rooms.remove(trim);
-			for(User u : users)
-			{
-				if(u.getCurrentRoom().equals(trim2))
+			for (User u : users) {
+				if (u.getCurrentRoom().equals(trim2))
 					u.setCurrentRoom(trim2);
 			}
 			rooms.add(trim2);
-		}		
+		}
 	}
 
 	private void createRoom(String trim) {
-		synchronized(rooms)
-		{
+		synchronized (rooms) {
 			rooms.add(trim);
 		}
 	}
 
 	private boolean hasRoom(String secondToken) {
-		// TODO Auto-generated method stub
+		for (String room : rooms)
+			if (room.equalsIgnoreCase(secondToken))
+				return true;
 		return false;
-	}
-
-	private void roomInfo(String string, User user2) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private String getLogs() {
@@ -231,20 +247,22 @@ public class ClientsHandler extends IoHandlerAdapter {
 		return null;
 	}
 
-	private void printServerRooms() {
-		// TODO Auto-generated method stub
-		
+	private void printServerRooms(IoSession session) {
+		for (String room : rooms) {
+			session.write(room + LINEFEED);
+		}
 	}
 
 	private void sendMessage(String string, IoSession session) {
-		session.write(string);
+		session.write(string + LINEFEED);
 	}
 
 	public void sessionCreated(IoSession session) throws Exception {
 
-		if( session.getTransportType() == TransportType.SOCKET )
-			((SocketSessionConfig) session.getConfig() ).setReceiveBufferSize( 2048 );
+		if (session.getTransportType() == TransportType.SOCKET)
+			((SocketSessionConfig) session.getConfig())
+					.setReceiveBufferSize(2048);
 
-        session.setIdleTime( IdleStatus.BOTH_IDLE, 10 );
+		session.setIdleTime(IdleStatus.BOTH_IDLE, 10);
 	}
 }

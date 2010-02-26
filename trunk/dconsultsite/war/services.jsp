@@ -2,7 +2,8 @@
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
             <jsp:include page="/header.jsp" flush="false" />
-   
+		   	<jsp:useBean id="contact" class="com.dconsult.model.ContactFormBean" scope="request"/>
+			<jsp:setProperty name="contact" property="*"/> 
             <div id="middle">
                 <div id="new_left">
                     <div class="box">
@@ -26,7 +27,7 @@
                       	<strong>Ако не сте уверени, че Вашата фирма може да кандидатства за финансиране, моля попълнете <a id="contact_form_show" href="#">формуляра за връзка</a> с някой от нашите консултанти - те ще се свържат с Вас и ще проведат напълно безплатна проектна консултация с Вас!</strong>	
                       	</p>
                       	<p>
-                      	<strong>Ако желаете да кандидатствате за финансиране с наша помощ, <a id="calculator_show" href="#">тук</a> може да изчислите и нашата такса в замисимост от желаната от Вас сума на финансиране.</strong>	
+                      	<strong>Ако желаете да кандидатствате за финансиране с наша помощ, <a id="consultation_show" href="#">тук</a> може да изчислите и нашата такса в замисимост от желаната от Вас сума на финансиране.</strong>	
                       	</p>
 												
                     </div>
@@ -51,35 +52,44 @@
                     </div>					
                 </div>
                 <div id="contact_form" style="display:none">
+                	<form action="/donsultsite" method="post">
+                	<input type="hidden" name="form_name" value="contact_form"/>
 					<div class="box">
                         <h2>Попълнете този формуляр за връзка с наш консултант:</h2>
                         <table>
-                        	<tr><td>Име на компанията</td><td><input type="text"/></td></tr>
-                        	<tr><td>Име на контакт</td><td><input type="text"/></td></tr>
-                        	<tr><td>Адрес</td><td><input type="text"/></td></tr>
-                        	<tr><td>Телефон</td><td><input type="text"/></td></tr>
-                        	<tr><td>Мобилен телефон</td><td><input type="text"/></td></tr>
-                        	<tr><td>E-mail</td><td><input type="text"/></td></tr>
-                        	<tr><td>Уеб страница</td><td><input type="text"/></td></tr>
-                        	<tr><td>Размер на желаното финансиране*</td><td><input type="text"/></td></tr>
-                        	<tr><td>Изпрати</td><td>Изчисти</td></tr>
+                        	<tr><td>Име на компанията</td><td><input name="companyName" type="text"/></td></tr>
+                        	<tr><td>Име на контакт</td><td><input name="contactName" type="text"/></td></tr>
+                        	<tr><td>Адрес</td><td><input name="address" type="text"/></td></tr>
+                        	<tr><td>Телефон</td><td><input name="telephone" type="text"/></td></tr>
+                        	<tr><td>Мобилен телефон</td><td><input name="mobile" type="text"/></td></tr>
+                        	<tr><td>E-mail</td><td><input name="email" type="text"/></td></tr>
+                        	<tr><td>Уеб страница</td><td><input name="website" type="text"/></td></tr>
+                        	<tr><td>Размер на желаното финансиране*</td><td><input name="desiredMoney" type="text"/></td></tr>
+                        	<tr><td>Изпрати<input type="submit"/></td><td>Изчисти</td></tr>
                         </table>
-                    </div>					
+                    </div>			
+                    </form>		
                 </div>
-                <div id="calculator_form" style="display:none">
+                <div id="consultation_form" style="display:none">
 					<div class="box">
                         <h2>Попълнете този формуляр за безплатна предпроектна консултация:</h2>
                         <table>
                         	<tr><td colspan="2">Безвъзмездна помощ</td></tr>
-                        	<tr><td>Опишете накратко Вашите нужди за финансиране</td><td><input type="text"/></td></tr>
-                        	<tr><td>Име на контакт</td><td><input type="text"/></td></tr>
+                        	<tr><td>Опишете накратко Вашите нужди за финансиране</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>До какъв % от проекта бихте могли да осигурите кофинансиране?</td><td><input name="" type="text"/></td></tr>
                         	<tr><td colspan="2">Информация за компанията</td></tr>
-                        	<tr><td>Адрес</td><td><input type="text"/></td></tr>
-                        	<tr><td>Телефон</td><td><input type="text"/></td></tr>
-                        	<tr><td>Мобилен телефон</td><td><input type="text"/></td></tr>
-                        	<tr><td>E-mail</td><td><input type="text"/></td></tr>
-                        	<tr><td>Уеб страница</td><td><input type="text"/></td></tr>
-                        	<tr><td>Размер на желаното финансиране*</td><td><input type="text"/></td></tr>
+                        	<tr><td>Основна дейност</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>Размер на годишния оборот за предходната година **</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>Брой служители (до 10, 10 - 50, 50 - 150, над 150)**</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>Получавали ли сте безвъзмездно финансиране до сега? Ако да, пояснете.</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>Име на компанията</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>Име на контакт</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>Адрес</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>Телефон</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>Мобилен Телефон</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>E-mail</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>Уеб Страница</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>Адрес</td><td><input name="" type="text"/></td></tr>
                         	<tr><td>Изпрати</td><td>Изчисти</td></tr>
                         </table>
                     </div>					
@@ -94,13 +104,13 @@
 			    
 			  $("#contact_form_show").click(function () {
 			    $("#new_right").hide("slow");
-			    $("#calculator_form").hide("slow");
+			    $("#consultation_form").hide("slow");
 			    $("#contact_form").show("slow");
 			  });    
-			  $("#calculator_show").click(function () {
+			  $("#consultation_show").click(function () {
 			    $("#new_right").hide("slow");
 			    $("#contact_form").hide("slow");
-			    $("#calculator_form").show("slow");
+			    $("#consultation_form").show("slow");
 			  });    
 			
 			});

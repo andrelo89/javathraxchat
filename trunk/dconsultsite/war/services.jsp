@@ -2,8 +2,7 @@
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
             <jsp:include page="/header.jsp" flush="false" />
-		   	<jsp:useBean id="contact" class="com.dconsult.model.ContactFormBean" scope="request"/>
-			<jsp:setProperty name="contact" property="*"/> 
+            
             <div id="middle">
                 <div id="new_left">
                     <div class="box">
@@ -52,7 +51,7 @@
                     </div>					
                 </div>
                 <div id="contact_form" style="display:none">
-                	<form action="/donsultsite" method="post">
+                	<form action="/submitter.jsp" method="post">
                 	<input type="hidden" name="form_name" value="contact_form"/>
 					<div class="box">
                         <h2>Попълнете този формуляр за връзка с наш консултант:</h2>
@@ -65,7 +64,8 @@
                         	<tr><td>E-mail</td><td><input name="email" type="text"/></td></tr>
                         	<tr><td>Уеб страница</td><td><input name="website" type="text"/></td></tr>
                         	<tr><td>Размер на желаното финансиране*</td><td><input name="desiredMoney" type="text"/></td></tr>
-                        	<tr><td>Изпрати<input type="submit"/></td><td>Изчисти</td></tr>
+                        	<tr><td align="right" colspan="2"><input type="submit" value="Изпрати" /><input type="reset" value="Изчисти" /></td></tr>
+<!--                        	<tr><td align="right" colspan="2"></td></tr>-->
                         </table>
                     </div>			
                     </form>		
@@ -103,14 +103,14 @@
 			$(document).ready(function(){
 			    
 			  $("#contact_form_show").click(function () {
-			    $("#new_right").hide("slow");
-			    $("#consultation_form").hide("slow");
-			    $("#contact_form").show("slow");
+			    $("#new_right").hide("fast");
+			    $("#consultation_form").hide("fast");
+			    $("#contact_form").show("fast");
 			  });    
 			  $("#consultation_show").click(function () {
-			    $("#new_right").hide("slow");
-			    $("#contact_form").hide("slow");
-			    $("#consultation_form").show("slow");
+			    $("#new_right").hide("fast");
+			    $("#contact_form").hide("fast");
+			    $("#consultation_form").show("fast");
 			  });    
 			
 			});

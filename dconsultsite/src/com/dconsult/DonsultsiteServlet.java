@@ -1,6 +1,7 @@
 package com.dconsult;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
@@ -21,7 +22,18 @@ public class DonsultsiteServlet extends HttpServlet {
 		String form = req.getParameter("form_name");
 		if (form != null) {
 			if (form.equals("contact_form")) {
-				ContactFormBean saveMe = (ContactFormBean) req.getAttribute("contact");
+//				ContactFormBean saveMe = new ContactFormBean();
+//				saveMe.setCompanyName(req.getParameter("companyName"));
+//				saveMe.setContactName(req.getParameter("contactName"));
+//				saveMe.setAddress(req.getParameter("address"));
+//				saveMe.setTelephone(req.getParameter("telephone"));
+//				saveMe.setMobile(req.getParameter("mobile"));
+//				saveMe.setEmail(req.getParameter("email"));
+//				saveMe.setWebsite(req.getParameter("website"));
+//				saveMe.setDesiredMoney(req.getParameter("desiredMoney"));
+				
+				ContactFormBean saveMe = (ContactFormBean) req.getAttribute("contact_form");
+				saveMe.setCreationTime(new Date());
 				PersistenceManager pm = PMF.get().getPersistenceManager();
 				try {
 					pm.makePersistent(saveMe);
@@ -29,7 +41,7 @@ public class DonsultsiteServlet extends HttpServlet {
 					pm.close();
 				}
 			}
-//			resp.sendRedirect("/guestbook.jsp");
+			resp.sendRedirect("/services.jsp");
 		}
 	}
 }

@@ -65,34 +65,35 @@
                         	<tr><td>Уеб страница</td><td><input name="website" type="text"/></td></tr>
                         	<tr><td>Размер на желаното финансиране*</td><td><input name="desiredMoney" type="text"/></td></tr>
                         	<tr><td align="right" colspan="2"><input type="submit" value="Изпрати" /><input type="reset" value="Изчисти" /></td></tr>
-<!--                        	<tr><td align="right" colspan="2"></td></tr>-->
                         </table>
                     </div>			
                     </form>		
                 </div>
                 <div id="consultation_form" style="display:none">
+                	<form action="/submitter.jsp" method="post">
+                	<input type="hidden" name="form_name" value="consultation_form"/>
 					<div class="box">
                         <h2>Попълнете този формуляр за безплатна предпроектна консултация:</h2>
                         <table>
                         	<tr><td colspan="2">Безвъзмездна помощ</td></tr>
-                        	<tr><td>Опишете накратко Вашите нужди за финансиране</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>До какъв % от проекта бихте могли да осигурите кофинансиране?</td><td><input name="" type="text"/></td></tr>
+                        	<tr><td>Опишете накратко Вашите нужди за финансиране</td><td><input name="financingNeeds" type="text"/></td></tr>
+                        	<tr><td>До какъв % от проекта бихте могли да осигурите кофинансиране?</td><td><input name="percentageCoFund" type="text"/></td></tr>
                         	<tr><td colspan="2">Информация за компанията</td></tr>
-                        	<tr><td>Основна дейност</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>Размер на годишния оборот за предходната година **</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>Брой служители (до 10, 10 - 50, 50 - 150, над 150)**</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>Получавали ли сте безвъзмездно финансиране до сега? Ако да, пояснете.</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>Име на компанията</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>Име на контакт</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>Адрес</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>Телефон</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>Мобилен Телефон</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>E-mail</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>Уеб Страница</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>Адрес</td><td><input name="" type="text"/></td></tr>
-                        	<tr><td>Изпрати</td><td>Изчисти</td></tr>
+                        	<tr><td>Основна дейност</td><td><input name="primaryCompanyActivity" type="text"/></td></tr>
+                        	<tr><td>Размер на годишния оборот за предходната година **</td><td><input name="companyEarnings" type="text"/></td></tr>
+                        	<tr><td>Брой служители (до 10, 10 - 50, 50 - 150, над 150)**</td><td><input name="numberOfEmployees" type="text"/></td></tr>
+                        	<tr><td>Получавали ли сте безвъзмездно финансиране до сега? Ако да, пояснете.</td><td><input name="priorFinancing" type="text"/></td></tr>
+                        	<tr><td>Име на компанията</td><td><input name="companyName" type="text"/></td></tr>
+                        	<tr><td>Име на контакт</td><td><input name="contactName" type="text"/></td></tr>
+                        	<tr><td>Адрес</td><td><input name="address" type="text"/></td></tr>
+                        	<tr><td>Телефон</td><td><input name="telephone" type="text"/></td></tr>
+                        	<tr><td>Мобилен Телефон</td><td><input name="mobile" type="text"/></td></tr>
+                        	<tr><td>E-mail</td><td><input name="email" type="text"/></td></tr>
+                        	<tr><td>Уеб Страница</td><td><input name="webAddress" type="text"/></td></tr>
+                        	<tr><td align="right" colspan="2"><input type="submit" value="Изпрати" /><input type="reset" value="Изчисти" /></td></tr>
                         </table>
-                    </div>					
+                    </div>
+                    </form>					
                 </div>
                 <div class="clearing">&nbsp;</div>       
             </div>

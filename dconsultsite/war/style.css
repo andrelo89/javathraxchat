@@ -160,6 +160,15 @@ img {
     background: url(images/hblue.gif) no-repeat;
 }
 
+#sidebar h2.hblue_big {
+	padding-top: 15px;
+    height: 100px;
+    line-height: 18px;
+    color: White;
+    background: url(images/hblue_double.png) no-repeat;
+}
+
+
 #sidebar .box {
     padding: 10px 7px 20px 7px;
 }
@@ -278,7 +287,7 @@ img {
 #right #intro p {
     padding: 0 0 0 205px;
     width: 350px;
-    line-height: 22px;
+    line-height: 19px;
     color: White;
 }
 
@@ -363,4 +372,9 @@ img {
 
 #footer p a {
     color: White;
+}
+
+.inputBtn {
+	color:#E74E2F;
+	font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
 }

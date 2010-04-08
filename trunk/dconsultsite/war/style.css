@@ -11,6 +11,8 @@ body {
     background: #888888 url(images/bg.gif) repeat-x;
 }
 
+.ui-widget { font-family: "Trebuchet MS", Arial, Helvetica, sans-serif/*{ffDefault}*/; font-size: 13px/19px/*{fsDefault}*/; }
+
 h1 {
     width: 270px;
     padding: 48px 0 0 30px;
@@ -133,6 +135,11 @@ img {
     color: White;
 }
 
+#tab_collection {
+    //padding: 28px 30px 0 30px;
+    height: 1%;
+    background: url(images/middle.jpg) no-repeat top;
+}
 #middle {
     padding: 28px 30px 0 30px;
     height: 1%;
@@ -248,12 +255,21 @@ img {
 }
 
 #new_right {
-    float: right;
+    float: left;
+    //width: 589px;
+    width: 480px;
+}
+#new_right2 {
+    float: left;
     //width: 589px;
     width: 393px;
 }
 
 #new_right p
+{
+	text-align: left;
+}
+#new_right2 p
 {
 	text-align: left;
 }
@@ -393,13 +409,6 @@ img {
     color: White;
 }
 
-.inputBtn {
-	color:#E74E2F;
-	font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
-}
-
-
-
 fieldset {   
 	margin: 1.5em 0 0 0;   
 	padding: 0;  
@@ -425,4 +434,5 @@ label {
 	width: 10em;    
 	margin-right: 1em;  
 }
+
 

@@ -3,7 +3,15 @@
 
             <jsp:include page="/header.jsp" flush="false" />
             
-            <div id="middle">
+            
+		    
+            <div id="tab_collection">
+	            <ul>
+			        <li><a href="#tab_id1"><span>Консултантски услуги</span></a></li>
+			        <li><a href="#tab_id2"><span>ЕвроПроект+</span></a></li>
+			        <li><a href="#tab_id3"><span>Услуги за Общини</span></a></li>
+			    </ul>
+			    <div id="tab_id1"> 
                 <div id="new_left">
                     <div class="box">
                         <h2>Консултантски услуги</h2>
@@ -30,26 +38,14 @@
                       	</p>
                     </div>
                     
-                </div>                
+                </div> 
                 <div id="new_right">
-					<div class="box">
-                        <h2>ЕвроПроект+</h2>
-                        <h3>...софтуер за подготовка и управление на Вашите проекти</h3>
-                        <p>ЕвроПроект+ е насочен към подпомагане на дейността на неправителствени организации, фирми и частни консултанти. Защо Ви предлагаме софтуер за писане на проекти? Защото знаем какво означава да се следят и управляват много проекти, и колко неприятно и непрофесионално е да се объркат отчети или пропуснат важни дати. ЕвроПроект+ е цялостно решение на организационните проблеми на всеки консултант или компания, които се занимават едновременно с над 5 проекта.		
-                        </p>
-						<p>Нашият продукт Ви дава възможност да се фокусирате върху намирането на нови източници за финансиране на проектите на клиентите си, а не да губите времето си в безкрайно организиране на документи, контакти и календари.		
-						</p>
-						<p>ЕвроПроект+ е създаден, за да Ви помага не само в процеса на организиране и подготвяне на проектни предложения, а и в усъвършенстването на качеството на Вашите услуги. Специализираният модул за анализ на свършената работа генерира отчети и схеми за измерване на ефективността и успеха на Вашия бизнес.		
-						</p>
-						<p>Кратка презентация на ЕвроПроект+ - <a href="#">натиснете тук</a>		
-						</p>					
-						<p>Демо на ЕвроПроект+ - <a href="#">натиснете тук</a>		
-						</p>					
-						<p><a href="#">Как да си купя ЕвроПроект+?</a>
-						</p>					
-                    </div>
-                </div>
-                <div id="contact_form" style="display:none">
+                <div id="innertabs">
+	                <ul>
+				        <li><a href="#inner_tab_id1"><span>Връзка с Консултант</span></a></li>
+				        <li><a href="#inner_tab_id2"><span>Предпроектна Консултация</span></a></li>
+				    </ul>
+				    <div id="inner_tab_id1">
                 	<form action="/submitter.jsp" method="post">
                 	<input type="hidden" name="form_name" value="contact_form"/>
 					<div class="box">
@@ -67,53 +63,146 @@
                         </table>
                     </div>			
                     </form>		
+                  </div> 
+				    <div id="inner_tab_id2">
+	                	<form action="/submitter.jsp" method="post">
+	                	<input type="hidden" name="form_name" value="consultation_form"/>
+						<div class="box">
+	                        <h2>Попълнете този формуляр за безплатна предпроектна консултация:</h2>
+	                        <table>
+	                        	<tr><td colspan="2">Безвъзмездна помощ</td></tr>
+	                        	<tr><td>Опишете накратко Вашите нужди за финансиране</td><td><input name="financingNeeds" type="text"/></td></tr>
+	                        	<tr><td>До какъв % от проекта бихте могли да осигурите кофинансиране?</td><td><input name="percentageCoFund" type="text"/></td></tr>
+	                        	<tr><td colspan="2">Информация за компанията</td></tr>
+	                        	<tr><td>Основна дейност</td><td><input name="primaryCompanyActivity" type="text"/></td></tr>
+	                        	<tr><td>Размер на годишния оборот за предходната година **</td><td><input name="companyEarnings" type="text"/></td></tr>
+	                        	<tr><td>Брой служители (до 10, 10 - 50, 50 - 150, над 150)**</td><td><input name="numberOfEmployees" type="text"/></td></tr>
+	                        	<tr><td>Получавали ли сте безвъзмездно финансиране до сега? Ако да, пояснете.</td><td><input name="priorFinancing" type="text"/></td></tr>
+	                        	<tr><td>Име на компанията</td><td><input name="companyName" type="text"/></td></tr>
+	                        	<tr><td>Име на контакт</td><td><input name="contactName" type="text"/></td></tr>
+	                        	<tr><td>Адрес</td><td><input name="address" type="text"/></td></tr>
+	                        	<tr><td>Телефон</td><td><input name="telephone" type="text"/></td></tr>
+	                        	<tr><td>Мобилен Телефон</td><td><input name="mobile" type="text"/></td></tr>
+	                        	<tr><td>E-mail</td><td><input name="email" type="text"/></td></tr>
+	                        	<tr><td>Уеб Страница</td><td><input name="webAddress" type="text"/></td></tr>
+	                        	<tr><td align="right" colspan="2"><input type="submit" value="Изпрати" /><input type="reset" value="Изчисти" /></td></tr>
+	                        </table>
+	                    </div>
+	                    </form>					
+	                </div>
+				</div>
+				</div>
+                       
                 </div>
-                <div id="consultation_form" style="display:none">
-                	<form action="/submitter.jsp" method="post">
-                	<input type="hidden" name="form_name" value="consultation_form"/>
+                        
+                <div id="tab_id2">
+	                <div id="new_left">
+						<div class="box">
+	                        <h2>ЕвроПроект+</h2>
+	                        <h3>...софтуер за подготовка и управление на Вашите проекти</h3>
+	                        <p>ЕвроПроект+ е насочен към подпомагане на дейността на неправителствени организации, фирми и частни консултанти. Защо Ви предлагаме софтуер за писане на проекти? Защото знаем какво означава да се следят и управляват много проекти, и колко неприятно и непрофесионално е да се объркат отчети или пропуснат важни дати. ЕвроПроект+ е цялостно решение на организационните проблеми на всеки консултант или компания, които се занимават едновременно с над 5 проекта.		
+	                        </p>
+							<p>Нашият продукт Ви дава възможност да се фокусирате върху намирането на нови източници за финансиране на проектите на клиентите си, а не да губите времето си в безкрайно организиране на документи, контакти и календари.		
+							</p>
+							<p>ЕвроПроект+ е създаден, за да Ви помага не само в процеса на организиране и подготвяне на проектни предложения, а и в усъвършенстването на качеството на Вашите услуги. Специализираният модул за анализ на свършената работа генерира отчети и схеми за измерване на ефективността и успеха на Вашия бизнес.		
+							</p>
+							<p>Кратка презентация на ЕвроПроект+ - <a href="#">натиснете тук</a>		
+							</p>					
+							<p>Демо на ЕвроПроект+ - <a href="#">натиснете тук</a>		
+							</p>					
+							<p><a href="#">Как да си купя ЕвроПроект+?</a>
+							</p>					
+	                    </div>
+	                </div>
+	                
+                </div>
+                <div id="tab_id3">
+                <div id="new_left">
 					<div class="box">
-                        <h2>Попълнете този формуляр за безплатна предпроектна консултация:</h2>
+                        <h2>Консултантски услуги за общини</h2>
+                        <p>Услугите на Д Консулт са фокусирани в подготовката, управлението и отчитането на проекти за получаване на безвъзмездна финансова помощ. Предлагаме Ви:		
+                        </p>
+						<ul>
+							<li>Предпроектна консултация за възможностите за финансиране на
+							Вашата община</li>
+							<li>Изготвяне на стратегически план за развитие на общината</li>
+							<li>Подготовка на документи за кандидатстване по различни програми
+							за финансиране</li>
+							<li>Проучване на възможности на допълнително финансиране (при
+							нужда)</li>
+							<li>Управление на спечелени проекти</li>
+							<li>Отчитане на приключени проекти</li>
+							<li>Обучение за работа със специализиран софтуер за подготвяне и
+							управление на проекти</li>
+						</ul>
+						<p style="font-weight:bold">Ако желаете да кандидатствате за финансиране, но не сте сигурни дали можете, моля попълнете формуляра за връзка с някой от нашите консултанти - те ще се свържат с Вас за безплатна проектна консултация!
+						</p>					
+						<p style="font-weight:bold">Ако желаете да кандидатствате за финансиране с наша помощ, тук може да изчислите и нашата такса в замисимост от желаната от Вас сума на финансиране.
+						</p>					
+                    </div>
+                </div>
+                <div id="new_right">
+                <div id="innertabs2">
+	                <ul>
+				        <li><a href="#inner2_tab_id1"><span>Връзка с Консултант</span></a></li>
+				        <li><a href="#inner2_tab_id2"><span>Предпроектна Консултация</span></a></li>
+				    </ul>
+				    <div id="inner2_tab_id1">
+                	<form action="/submitter.jsp" method="post">
+                	<input type="hidden" name="form_name" value="contact_form"/>
+					<div class="box">
+                        <h2>Попълнете този формуляр за връзка с наш консултант:</h2>
                         <table>
-                        	<tr><td colspan="2">Безвъзмездна помощ</td></tr>
-                        	<tr><td>Опишете накратко Вашите нужди за финансиране</td><td><input name="financingNeeds" type="text"/></td></tr>
-                        	<tr><td>До какъв % от проекта бихте могли да осигурите кофинансиране?</td><td><input name="percentageCoFund" type="text"/></td></tr>
-                        	<tr><td colspan="2">Информация за компанията</td></tr>
-                        	<tr><td>Основна дейност</td><td><input name="primaryCompanyActivity" type="text"/></td></tr>
-                        	<tr><td>Размер на годишния оборот за предходната година **</td><td><input name="companyEarnings" type="text"/></td></tr>
-                        	<tr><td>Брой служители (до 10, 10 - 50, 50 - 150, над 150)**</td><td><input name="numberOfEmployees" type="text"/></td></tr>
-                        	<tr><td>Получавали ли сте безвъзмездно финансиране до сега? Ако да, пояснете.</td><td><input name="priorFinancing" type="text"/></td></tr>
-                        	<tr><td>Име на компанията</td><td><input name="companyName" type="text"/></td></tr>
+                        	<tr><td>Име на общината</td><td><input name="companyName" type="text"/></td></tr>
                         	<tr><td>Име на контакт</td><td><input name="contactName" type="text"/></td></tr>
                         	<tr><td>Адрес</td><td><input name="address" type="text"/></td></tr>
                         	<tr><td>Телефон</td><td><input name="telephone" type="text"/></td></tr>
-                        	<tr><td>Мобилен Телефон</td><td><input name="mobile" type="text"/></td></tr>
+                        	<tr><td>Мобилен телефон</td><td><input name="mobile" type="text"/></td></tr>
                         	<tr><td>E-mail</td><td><input name="email" type="text"/></td></tr>
-                        	<tr><td>Уеб Страница</td><td><input name="webAddress" type="text"/></td></tr>
+                        	<tr><td>Уеб страница</td><td><input name="website" type="text"/></td></tr>
+                        	<tr><td>Размер на желаното финансиране*</td><td><input name="desiredMoney" type="text"/></td></tr>
                         	<tr><td align="right" colspan="2"><input type="submit" value="Изпрати" /><input type="reset" value="Изчисти" /></td></tr>
                         </table>
-                    </div>
-                    </form>					
+                    </div>			
+                    </form>		
+                  </div> 
+				    <div id="inner2_tab_id2">
+	                	<form action="/submitter.jsp" method="post">
+	                	<input type="hidden" name="form_name" value="consultation_form"/>
+						<div class="box">
+	                        <h2>Попълнете този формуляр за безплатна предпроектна консултация:</h2>
+	                        <table>
+	                        	<tr><td colspan="2">Безвъзмездна помощ</td></tr>
+	                        	<tr><td>Опишете накратко Вашите нужди за финансиране</td><td><input name="financingNeeds" type="text"/></td></tr>
+	                        	<tr><td>Размер на желаното финансиране</td><td><input name="percentageCoFund" type="text"/></td></tr>
+	                        	<tr><td colspan="2">Информация за общината</td></tr>
+	                        	<tr><td>Получавали ли сте безвъзмездно финансиране до сега? Ако да, пояснете.</td><td><input name="priorFinancing" type="text"/></td></tr>
+	                        	<tr><td>Име на общината</td><td><input name="companyName" type="text"/></td></tr>
+	                        	<tr><td>Име на контакт</td><td><input name="contactName" type="text"/></td></tr>
+	                        	<tr><td>Адрес</td><td><input name="address" type="text"/></td></tr>
+	                        	<tr><td>Телефон</td><td><input name="telephone" type="text"/></td></tr>
+	                        	<tr><td>Мобилен Телефон</td><td><input name="mobile" type="text"/></td></tr>
+	                        	<tr><td>E-mail</td><td><input name="email" type="text"/></td></tr>
+	                        	<tr><td>Уеб Страница</td><td><input name="webAddress" type="text"/></td></tr>
+	                        	<tr><td align="right" colspan="2"><input type="submit" value="Изпрати" /><input type="reset" value="Изчисти" /></td></tr>
+	                        </table>
+	                    </div>
+	                    </form>					
+	                </div>
+				</div>
+				</div>
                 </div>
+              
+                
                 <div class="clearing">&nbsp;</div>       
             </div>
             
-            <script src="http://code.jquery.com/jquery-latest.js"></script>
-  
 			<script>
-			$(document).ready(function(){
-			    
-			  $("#contact_form_show").click(function () {
-			    $("#new_right").hide("fast");
-			    $("#consultation_form").hide("fast");
-			    $("#contact_form").show("fast");
-			  });    
-			  $("#consultation_show").click(function () {
-			    $("#new_right").hide("fast");
-			    $("#contact_form").hide("fast");
-			    $("#consultation_form").show("fast");
-			  });    
-			
-			});
+			$(document).ready(function() {
+			    $("#tab_collection").tabs();
+			    $("#innertabs").tabs();
+			    $("#innertabs2").tabs();
+			  });
 			</script>
 			  
             <jsp:include page="/footer.jsp" flush="false" />

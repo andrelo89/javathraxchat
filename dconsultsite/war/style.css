@@ -196,7 +196,7 @@ img {
 }
 
 #sidebar .box {
-    padding: 10px 7px 20px 7px;
+    padding: 10px 7px 0px 7px;
 }
 
 #sidebar p span {
@@ -313,11 +313,12 @@ img {
 #right #intro h2 {
     padding: 15px 0 5px 230px;
     width: 350px;
-    font-size: 26px;
+    font-size: 30px;
 }
 
 #right #intro h3 {
     padding: 0 0 30px 230px;
+    font-size: 20px;
 }
 
 #right #intro p {

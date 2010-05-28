@@ -7,11 +7,11 @@
                 <div id="sidebar">
                     <h2 class="hblue">Финансиране от ЕС</h2>
 					<ul>
-							<li> <a href="#">По каква схема да кандидатствам?</a> </li>
-							<li> <a href="#">Какво трябва да направя?</a> </li>
-							<li> <a href="#">Какви са цените на Д Консулт?</a> </li>
+							<li> <a href="services.jsp">По каква схема да кандидатствам?</a> </li>
+							<li> <a href="services.jsp">Какво трябва да направя?</a> </li>
+							<li> <a href="services.jsp">Какви са цените на Д Консулт?</a> </li>
 							<li>&nbsp;</li>
-							<li class="button">Поискайте предпроектна консултация!</li>
+							<li class="button" onclick="parent.location='services.jsp'">Поискайте предпроектна консултация!</li>
 					</ul>                     
                     <h2 class="hblue">Европейски проекти</h2>
 					<div class="box">
@@ -38,14 +38,14 @@
 							<li><a href="#">ОП " Развитие на рибарство"</a></li>
 							<li>&nbsp;</li>
 <!--							<li><a href="#">Още...</a></li>-->
-							<li class="button">Кои предложения са подходящи за моя бизнес?</li>							
+							<li class="button" onclick="parent.location='services.jsp'">Кои предложения са подходящи за моя бизнес?</li>							
 						</ul>						
 					</div>
 					<h2 class="hblue">ЕвроПроект+</h2>
 					<div class="box">
 						<ul>
-							<li>описание на софтуера</li>
-							<li><a href="#">кратко демо</a></li>							 
+							<li>Софтуерно решение на Вашите организационни и административни проблеми</li>
+							<li><a href="services.jsp">Кликнете тук за демо на продукта</a></li>							 
 						</ul>
 					</div>
                 </div>                

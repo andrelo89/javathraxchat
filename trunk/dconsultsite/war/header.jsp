@@ -21,9 +21,9 @@
                 <div id="menu">
                     <ul>
                         <li><a href="/index.jsp">начало</a></li>
-                        <li><a href="/services.jsp">услуги и продукти</a></li>
+                        <li><a href="/services.jsp">услуги</a></li>
+                        <li><a href="/products.jsp">продукти</a></li>
                         <li><a href="/about.jsp">за нас</a></li>
-                        <li><a href="/contact.jsp">контакти</a></li>
                     </ul>
                 </div>
             </div>    

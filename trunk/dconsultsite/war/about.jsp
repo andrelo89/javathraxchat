@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+﻿<%@ page contentType="text/html; charset=utf-8" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
             <jsp:include page="/header.jsp" flush="false" />
@@ -6,7 +7,7 @@
             <div id="middle">
                 <div id="new_center">
                     <div class="box">
-                      	<h1>DConsult</h1>
+                      	<h1>За Нас</h1>
                       	<p>
                       	Д Консулт е създадена с цел подпомагане на бързото и ефективно усвояване на средствата, предоставени от европейските структурни фондове. Нашите услуги са насочени както към компании, които желаят да развият капацитета си, така и към други консултанти, които могат да се възползват от софтуерния ни продукт ЕвроПроект+.	
                       	</p>

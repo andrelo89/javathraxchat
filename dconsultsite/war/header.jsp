@@ -1,10 +1,12 @@
+<%@ page contentType="text/html; charset=utf-8" %>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>DConsult</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="language" content="en" />
+    <meta name="language" content="bg" />
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>

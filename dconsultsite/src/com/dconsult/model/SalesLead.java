@@ -11,7 +11,7 @@ import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
 public class SalesLead {
-	enum Status {
+	public enum Status {
 		fresh, approved, rejected
 	};
 

@@ -1,6 +1,7 @@
 package com.dconsult.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
@@ -10,7 +11,7 @@ import javax.jdo.annotations.PrimaryKey;
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
-public class SalesLead {
+public class SalesLeads {
 	public enum Status {
 		fresh, approved, rejected
 	};
@@ -36,22 +37,24 @@ public class SalesLead {
 		this.key = key;
 	}
 
-	private String url;
-	private Status status;
+	private List<String> urls;
+	private List<Status> statuses;
 
-	public String getUrl() {
-		return url;
+	public List<String> getUrls() {
+		return urls;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setUrls(List<String> urls) {
+		this.urls = urls;
 	}
 
-	public Status getStatus() {
-		return status;
+	public List<Status> getStatuses() {
+		return statuses;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setStatuses(List<Status> statuses) {
+		this.statuses = statuses;
 	}
+
+	
 }

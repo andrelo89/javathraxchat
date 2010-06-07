@@ -15,7 +15,8 @@
 
 
 <div id="middle">
-	<div class="new_center">
+	<div id="salesleads">
+	<ol>
 		
 <%
     PersistenceManager pm = PMF.get().getPersistenceManager();
@@ -54,35 +55,42 @@ No new leads
     } else {
         for (String s : urls) {
 		%>
-<!--		$("#effect").effect(selectedEffect,options,500,callback);-->
-			<div> <h3><a href="<%=s%>"><%=s%></a> <input id="glog" type="image" src="images/button-ok.png" name="approve<%=s%>" alt="approve" /> 
-			 <input id="glog" onclick="" type="image" src="images/button-cancel.png" name="reject<%=s%>" alt="reject" />
-			</h3>
-			</div>
+		<li>
+			 <input id="glog" type="image" src="images/button-ok.png" name="approved<%=s%>" alt="approve" />
+			 <input id="glog" onclick="" type="image" src="images/button-cancel.png" name="rejected<%=s%>" alt="reject" />
+			 <a href="<%=s%>"><%=s%></a> 
+		</li>
 		<%
         }
     }
     pm.close();
 %>
+	</ol>
 	</div>
 </div>
 			<script>
 			$(function() {
 				function runEffect( o ){
 					var options = {};
-					$("input[name*=" + o.name + "]").toggle('fade',options,1000);
-					setTimeout(function(){
-						$("input[name*=" + o.name + "]").stop();
-					}, 500);
+					if(o.name.startsWith('approve'))
+						$("input[name=" + o.name + "] ~ a").animate({ backgroundColor: "green" }, 500);
+					else if (o.name.startsWith('reject'))
+						$("input[name=" + o.name + "] ~ a").animate({ backgroundColor: "red" }, 500);
+					
+					//$("input[name=" + o.name + "]").toggle('fade',options,1000);
+					//setTimeout(function(){
+					//	$("input[name=" + o.name + "]").stop();						
+					//}, 500);
 					
 				};
 				
 				//set effect from select menu value
 				$("input").click(function() {
-					$.get('/CRMServlet?' + "somekey=somevaluetopersist", function(data) {
-						alert(data);
+					$.get('/crm?' + 'leadkey=' + $.URLEncode(this.name), function(data) {
+						//alert(data);
 						});
 					runEffect(this);
+					//$("input[name=" + this.name + "]").unbind('click');
 					return false;
 				});
 

@@ -442,4 +442,12 @@ label {
 	margin-right: 1em;  
 }
 
+#salesleads
+{
+	 word-spacing:normal;
+	 overflow: scroll;
+	 //width: 590px;
+	 height: 800px;
+	 padding-left: 50px;
+}
 

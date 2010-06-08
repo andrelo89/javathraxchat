@@ -59,6 +59,7 @@ No new leads
 			 <input id="glog" type="image" src="images/button-ok.png" name="approved<%=s%>" alt="approve" />
 			 <input id="glog" onclick="" type="image" src="images/button-cancel.png" name="rejected<%=s%>" alt="reject" />
 			 <a href="<%=s%>"><%=s%></a> 
+			 <span></span>
 		</li>
 		<%
         }
@@ -73,9 +74,9 @@ No new leads
 				function runEffect( o ){
 					var options = {};
 					if(o.name.startsWith('approve'))
-						$("input[name=" + o.name + "] ~ a").animate({ backgroundColor: "green" }, 500);
+						$("input[name=" + o.name + "] ~ a").animate({ color:"white",  backgroundColor: "#00d61d" }, 500);
 					else if (o.name.startsWith('reject'))
-						$("input[name=" + o.name + "] ~ a").animate({ backgroundColor: "red" }, 500);
+						$("input[name=" + o.name + "] ~ a").animate({ color:"white", backgroundColor: "#990003" }, 500);
 					
 					//$("input[name=" + o.name + "]").toggle('fade',options,1000);
 					//setTimeout(function(){
@@ -88,6 +89,7 @@ No new leads
 				$("input").click(function() {
 					$.get('/crm?' + 'leadkey=' + $.URLEncode(this.name), function(data) {
 						//alert(data);
+						$("input[name=" + this.name + "] ~ span").html("OK");
 						});
 					runEffect(this);
 					//$("input[name=" + this.name + "]").unbind('click');

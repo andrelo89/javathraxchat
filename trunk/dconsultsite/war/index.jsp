@@ -10,35 +10,22 @@
 					<ul>
 							<li> <a href="services.jsp">По каква схема да кандидатствам?</a> </li>
 							<li> <a href="services.jsp">Какво трябва да направя?</a> </li>
-							<li> <a href="services.jsp">Какви са цените на Д Консулт?</a> </li>
+							<li> <a href="services.jsp">Какви са цените на D Consulting?</a> </li>
 							<li>&nbsp;</li>
 							<li class="button" onclick="parent.location='services.jsp'">Поискайте предпроектна консултация!</li>
 					</ul>                     
                     <h2 class="hblue">Европейски проекти</h2>
 					<div class="box">
 						<ul>
-							<li><strong>Текущи предложения</strong></li>					
-							<li><a href="#">ОП "Конкурентноспособност"</a></li>
-							<li><a href="#">ОП "Човешки ресурси"</a></li>
-							<li><a href="#">ОП "Регионално развитие"</a></li>
-							<li><a href="#">ОП "Селски райони"</a></li>
-							<li><a href="#">Програма на ЕБВР</a></li>
-							<li><a href="#">Още...</a></li>
+							<li>ОП "Конкурентноспособност"</li>
+							<li>ОП "Човешки ресурси"</li>
+							<li>ОП "Административен капацитет"</li>
+							<li>ОП "Регионално развитие"</li>
+							<li>ОП "Селски райони"</li>
+							<li>ОП "Околна среда"</li>
+							<li>ОП " Развитие на рибарство"</li>
+							<li><a href="#">Повече информация</a></li>
 							<li>&nbsp;</li>
-<!--						</ul>-->
-<!--					</div>-->
-<!--					<div class="box">-->
-<!--						<ul>-->
-							<li><strong>Предстоящи предложения</strong></li>					
-							<li><a href="#">ОП "Конкурентноспособност"</a></li>
-							<li><a href="#">ОП "Човешки ресурси"</a></li>
-							<li><a href="#">ОП "Административен капацитет"</a></li>
-							<li><a href="#">ОП "Регионално развитие"</a></li>
-							<li><a href="#">ОП "Селски райони"</a></li>
-							<li><a href="#">ОП "Околна среда"</a></li>
-							<li><a href="#">ОП " Развитие на рибарство"</a></li>
-							<li>&nbsp;</li>
-<!--							<li><a href="#">Още...</a></li>-->
 							<li class="button" onclick="parent.location='services.jsp'">Кои предложения са подходящи за моя бизнес?</li>							
 						</ul>						
 					</div>
@@ -82,11 +69,11 @@
                         <h2>Полезна информация</h2>
                         <div class="boxminileft"><img src="images/image2.jpg" alt="" />
                             <p>Може ли моята фирма да кандидатства за финансиране? Каква сума мога да получа?</p>
-                            <p class="more "><a href="#">Още...</a></p>
+                            <p class="more "><a href="services.jsp">Още...</a></p>
                         </div>
                         <div class="boxminiright"><img src="images/image3.jpg" alt="" />
                             <p>Каква е цената на ЕвроПроект+? Възможности за отстъпки и разсрочено плащане</p>
-                            <p class="more"><a href="#">Още...</a></p>
+                            <p class="more"><a href="products.jsp">Още...</a></p>
                         </div>
                         <div class="clearing">&nbsp;</div>   
                     </div>                    

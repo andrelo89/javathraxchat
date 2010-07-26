@@ -20,7 +20,7 @@ software@d-consult.net</p>
 
 
 <form>
-<fieldset><legend> Формуляр за връзка с Д Консулт</legend>
+<fieldset><legend> Формуляр за връзка с D Consulting</legend>
 <ol>
 	<li><label for="name">Име</label> <input id="name" type="text" />
 	</li>

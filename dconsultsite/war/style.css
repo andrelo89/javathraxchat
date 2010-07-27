@@ -151,6 +151,11 @@ img.ahno {
     background: url(images/middle.jpg) no-repeat top;
 }
 
+#middle .left {
+	float: left;
+	
+}
+
 #sidebar {
     padding-bottom: 20px;
     float: left;
@@ -223,6 +228,24 @@ img.ahno {
     margin: 0;
     padding: 0;
     line-height: 26px;
+}
+
+
+#about_container {
+    background: url(images/middle.jpg) no-repeat top;
+}
+
+#left_about {
+    padding: 25px;
+    width: 500px;
+}
+#right_about{
+	position: absolute;
+	left: 600px;
+	top: 121px;
+    padding-right: 25px;
+    width: 350px;
+   // background: url(images/middle.jpg) no-repeat top;
 }
 
 #new_left {

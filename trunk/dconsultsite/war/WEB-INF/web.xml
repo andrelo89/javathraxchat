@@ -6,6 +6,14 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet>
+		<servlet-name>CMSServlet</servlet-name>
+		<servlet-class>com.dconsult.cms.CMSServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CMSServlet</servlet-name>
+		<url-pattern>/cms</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>CRMServlet</servlet-name>
 		<servlet-class>com.dconsult.crm.CRMServlet</servlet-class>
 	</servlet>

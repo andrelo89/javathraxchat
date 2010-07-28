@@ -8,6 +8,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Text;
 
 @PersistenceCapable
 public class CMSEntry {
@@ -21,7 +22,7 @@ public class CMSEntry {
 	@Persistent
 	private String title;
 	@Persistent
-	private String body;
+	private Text body;
 	
 	public Date getCreationTime() {
 		return creationTime;
@@ -51,11 +52,12 @@ public class CMSEntry {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getBody() {
+
+	public Text getBody() {
 		return body;
 	}
-	public void setBody(String body) {
+
+	public void setBody(Text body) {
 		this.body = body;
 	}
-	
 }

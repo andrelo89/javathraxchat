@@ -239,6 +239,14 @@ img.ahno {
     padding: 25px;
     width: 500px;
 }
+#right_wysiwyg{
+	position: absolute;
+	left: 300px;
+	top: 121px;
+    padding-right: 25px;
+    width: 350px;
+   // background: url(images/middle.jpg) no-repeat top;
+}
 #right_about{
 	position: absolute;
 	left: 600px;

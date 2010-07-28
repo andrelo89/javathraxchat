@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.dconsult.jdo.PMF;
 import com.dconsult.model.CMSEntry;
 import com.dconsult.model.SalesLeads;
+import com.google.appengine.api.datastore.Text;
 
 @SuppressWarnings("serial")
 public class CMSServlet extends HttpServlet {
@@ -20,23 +21,27 @@ public class CMSServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String entryId = req.getParameter("entryId");
-		logger.info(entryId);
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-		
-		if(entryId == null)
-		{
-			String query = "select from " + CMSEntry.class.getName() + "where " + "";
-			List<CMSEntry> allLeads = (List<CMSEntry>) pm.newQuery(query).execute();
-			
+		try {
+			doPost(req, resp);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		pm.close();
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
+		String title = req.getParameter("title");
+		String body = req.getParameter("body");
+		logger.info("Saving " + title);
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		CMSEntry entry = new CMSEntry();
+		entry.setBody(new Text(body));
+		entry.setTitle(title);
+		pm.makePersistent(entry);
+		
+		pm.close();
+		getServletConfig().getServletContext().getRequestDispatcher("/cms.jsp").forward(req, resp);
 	}
 }

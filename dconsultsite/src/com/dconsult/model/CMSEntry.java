@@ -18,12 +18,21 @@ public class CMSEntry {
 	@Persistent
 	private Date creationTime;
 	@Persistent
-	private Date entryCreated;
+	private Date modificationTime;
 	@Persistent
 	private String title;
 	@Persistent
 	private Text body;
 	
+	
+	public Date getModificationTime() {
+		return modificationTime;
+	}
+
+	public void setModificationTime(Date modificationTime) {
+		this.modificationTime = modificationTime;
+	}
+
 	public Date getCreationTime() {
 		return creationTime;
 	}
@@ -40,12 +49,6 @@ public class CMSEntry {
 		this.key = key;
 	}
 	
-	public Date getEntryCreated() {
-		return entryCreated;
-	}
-	public void setEntryCreated(Date entryCreated) {
-		this.entryCreated = entryCreated;
-	}
 	public String getTitle() {
 		return title;
 	}

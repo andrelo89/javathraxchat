@@ -11,7 +11,8 @@
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
             
-<%@page import="com.dconsult.model.CMSEntry"%><html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="com.dconsult.model.CMSEntry"%>
+<%@page import="com.google.appengine.api.datastore.KeyFactory"%><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>DConsult</title>
     <meta name="keywords" content="" />
@@ -52,55 +53,46 @@
     </div>
     </div>  
     <div id="about_container">  
-		<div id="left_about">
-		<ul>
-			<%
-    PersistenceManager pm = PMF.get().getPersistenceManager();
-    String query = "select from " + CMSEntry.class.getName();
-    List<CMSEntry> entries = (List<CMSEntry>) pm.newQuery(query).execute();
-    for (CMSEntry s : entries) {
+		<div id="left_cms">
+		<%
+	    PersistenceManager pm = PMF.get().getPersistenceManager();
+	    String query = "select from " + CMSEntry.class.getName();
+	    List<CMSEntry> entries = (List<CMSEntry>) pm.newQuery(query).execute();
+	    for (CMSEntry s : entries) {
 		%>
-			<li>
-				 <a href="<%=s.getTitle()%>"><%=s.getTitle()%></a> 
-				 <input id="glog" onclick="" type="image" src="images/button-cancel.png" name="delete<%=s.getKey()%>" alt="reject" />
-				 <span></span>
-			</li>
+		<p style="text-align:left">
+				 <a href="/cms?key=<%=KeyFactory.keyToString(s.getKey())%>&delete=true"><img  src="images/button-cancel.png"/></a> 
+				 <a href="/cms?key=<%=KeyFactory.keyToString(s.getKey())%>"><%=s.getTitle()%></a>
+		</p> 
 		<%
     }
     pm.close();
 %>		
-		</ul>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
-			<div>asdasd </div>
 		</div>
 		<div id="right_wysiwyg">
 			<form method="post" action="/cms">
+				
+				<% if (request.getParameter("key") != null && request.getParameter("delete") == null)	{
+				   	pm = PMF.get().getPersistenceManager();
+				   	CMSEntry entry = pm.getObjectById(CMSEntry.class, KeyFactory.stringToKey(request.getParameter("key")));
+				%>
+				<input type="hidden" value="<%=request.getParameter("key")%>" name="key"/>
+				<label for="firstname">Title: </label>
+				<input name="title" id="title" type="text" value="<%=entry.getTitle()%>"/>
+				
+				<textarea name="body" id="body" rows="18" cols="70"><%=entry.getBody().getValue()%></textarea>
+				<div><button type="submit">Save Changes</button> </div>
+				<%}
+				else {%>
+				
 				<label for="firstname">Title: </label>
 				<input name="title" id="title" type="text"/>
 				
 				<textarea name="body" id="body" rows="18" cols="70"></textarea>
 				<div><button type="submit">Save Changes</button> </div>
+				<%} %>
+				<div><a href="cms.jsp">New Entry</a></div>
+				
 			</form>
 		</div>
 	</div>

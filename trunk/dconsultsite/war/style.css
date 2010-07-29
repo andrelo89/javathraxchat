@@ -235,6 +235,13 @@ img.ahno {
     background: url(images/middle.jpg) no-repeat top;
 }
 
+#left_cms {
+	text-align:left;
+    padding: 25px;
+    width: 200px;
+    height: 600px;
+    overflow: auto;
+}
 #left_about {
     padding: 25px;
     width: 500px;

@@ -1,6 +1,7 @@
 package com.dconsult.cms;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.dconsult.jdo.PMF;
 import com.dconsult.model.CMSEntry;
 import com.dconsult.model.SalesLeads;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
 
 @SuppressWarnings("serial")
@@ -21,12 +24,24 @@ public class CMSServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		try {
-			doPost(req, resp);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Key key = KeyFactory.stringToKey(req.getParameter("key"));
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		CMSEntry entry = pm.getObjectById(CMSEntry.class, key);
+		
+		if(req.getParameter("delete") != null)
+		{
+			logger.info("Deleting " + entry.getTitle());
+			pm.deletePersistent(entry);
 		}
+		else
+			logger.info("Got " + entry.getTitle());
+		
+		try {
+			getServletConfig().getServletContext().getRequestDispatcher("/cms.jsp").forward(req, resp);
+		} catch (ServletException e) {
+			logger.severe(e.getMessage());
+		}
+		pm.close();
 	}
 
 	@Override
@@ -36,10 +51,19 @@ public class CMSServlet extends HttpServlet {
 		String body = req.getParameter("body");
 		logger.info("Saving " + title);
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		CMSEntry entry = new CMSEntry();
+		CMSEntry entry;
+		if(req.getParameter("key") == null)
+		{
+			entry = new CMSEntry();
+			entry.setCreationTime(new Date());
+			pm.makePersistent(entry);
+		}
+		else
+			entry = pm.getObjectById(CMSEntry.class, req.getParameter("key"));
+		
 		entry.setBody(new Text(body));
 		entry.setTitle(title);
-		pm.makePersistent(entry);
+		entry.setModificationTime(new Date());
 		
 		pm.close();
 		getServletConfig().getServletContext().getRequestDispatcher("/cms.jsp").forward(req, resp);

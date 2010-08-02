@@ -56,12 +56,14 @@
 		<div id="left_cms">
 		<%
 	    PersistenceManager pm = PMF.get().getPersistenceManager();
-	    String query = "select from " + CMSEntry.class.getName();
+	    String query = "select from " + CMSEntry.class.getName() + " order by displayOrder";
 	    List<CMSEntry> entries = (List<CMSEntry>) pm.newQuery(query).execute();
 	    for (CMSEntry s : entries) {
 		%>
 		<p style="text-align:left">
-				 <a href="/cms?key=<%=KeyFactory.keyToString(s.getKey())%>&delete=true"><img  src="images/button-cancel.png"/></a> 
+				 <%=s.getDisplayOrder() %>.&nbsp;<a href="/cms?key=<%=KeyFactory.keyToString(s.getKey())%>&order=up">+</a>&nbsp; 
+				 <a href="/cms?key=<%=KeyFactory.keyToString(s.getKey())%>&order=down">-</a>&nbsp; 
+				 <a href="/cms?key=<%=KeyFactory.keyToString(s.getKey())%>&delete=true"><img  src="images/button-cancel.png"/></a>&nbsp; 
 				 <a href="/cms?key=<%=KeyFactory.keyToString(s.getKey())%>"><%=s.getTitle()%></a>
 		</p> 
 		<%

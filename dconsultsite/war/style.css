@@ -345,6 +345,10 @@ img.ahno {
     float: right;
     width: 589px;
 }
+#rightnews {
+    float: right;
+    width: 589px;
+}
 
 #intro {
     margin-bottom: 50px;
@@ -386,7 +390,21 @@ img.ahno {
     line-height: 18px;
     color: #E74E2F;
 }
+#rightnews h3 {
+    padding-bottom: 15px;
+    line-height: 18px;
+    color: #E74E2F;
+    font-weight: normal; font-size: medium;
+}
 
+#rightnews .box {
+    //padding-left: 10px;
+    padding-bottom: 40px;
+}
+
+#rightnews ul {
+    padding-left: 17px;    
+}
 #right .box {
     //padding-left: 10px;
     padding-bottom: 40px;

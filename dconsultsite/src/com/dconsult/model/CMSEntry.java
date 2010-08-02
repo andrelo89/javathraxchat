@@ -23,8 +23,17 @@ public class CMSEntry {
 	private String title;
 	@Persistent
 	private Text body;
+	@Persistent
+	private Integer displayOrder;
 	
-	
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+
 	public Date getModificationTime() {
 		return modificationTime;
 	}

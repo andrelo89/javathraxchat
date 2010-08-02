@@ -24,7 +24,7 @@
 							<li>ОП "Селски райони"</li>
 							<li>ОП "Околна среда"</li>
 							<li>ОП " Развитие на рибарство"</li>
-							<li><a href="#">Повече информация</a></li>
+							<li><a href="news.jsp">Повече информация</a></li>
 							<li>&nbsp;</li>
 							<li class="button" onclick="parent.location='services.jsp'">Кои предложения са подходящи за моя бизнес?</li>							
 						</ul>						

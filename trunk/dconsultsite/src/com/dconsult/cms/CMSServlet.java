@@ -33,15 +33,29 @@ public class CMSServlet extends HttpServlet {
 			logger.info("Deleting " + entry.getTitle());
 			pm.deletePersistent(entry);
 		}
+		else if(req.getParameter("order") != null)
+		{
+			logger.info("Changing order " + entry.getTitle());
+			if(entry.getDisplayOrder() == null)
+				entry.setDisplayOrder(0);
+			if( "up".equals(req.getParameter("order")))
+			{
+				entry.setDisplayOrder(entry.getDisplayOrder() + 1);
+			}
+			else if( "down".equals(req.getParameter("order")))
+			{
+				entry.setDisplayOrder(entry.getDisplayOrder() - 1);
+			}
+		}
 		else
 			logger.info("Got " + entry.getTitle());
 		
+		pm.close();
 		try {
 			getServletConfig().getServletContext().getRequestDispatcher("/cms.jsp").forward(req, resp);
 		} catch (ServletException e) {
 			logger.severe(e.getMessage());
 		}
-		pm.close();
 	}
 
 	@Override
@@ -56,6 +70,7 @@ public class CMSServlet extends HttpServlet {
 		{
 			entry = new CMSEntry();
 			entry.setCreationTime(new Date());
+			entry.setDisplayOrder(0);
 			pm.makePersistent(entry);
 		}
 		else

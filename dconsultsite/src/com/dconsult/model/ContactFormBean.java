@@ -44,7 +44,16 @@ public class ContactFormBean {
 	private String website;
 	@Persistent
 	private String desiredMoney;
+	@Persistent
+	private String question;
+
 	
+	public String getQuestion() {
+		return question;
+	}
+	public void setQuestion(String question) {
+		this.question = question;
+	}
 	public String getEmail() {
 		return email;
 	}

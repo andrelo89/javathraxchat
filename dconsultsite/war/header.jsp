@@ -45,10 +45,10 @@ URLDecode:function(s){var o=s;var binVal,t;var r=/(%[^%]{2})/;
                 <h1><a href="/index.jsp">D<span>consult</span>ing</a></h1>
                 <div id="menu">
                     <ul>
-                        <li><a href="/index.jsp">начало</a></li>
-                        <li><a href="/services.jsp">услуги</a></li>
-                        <li><a href="/products.jsp">продукти</a></li>
-                        <li><a href="/about.jsp">за нас</a></li>
+                        <li><a href="/index.jsp">start</a></li>
+                        <li><a href="/services.jsp">services</a></li>
+                        <li><a href="/products.jsp">products</a></li>
+                        <li><a href="/about.jsp">about us</a></li>
                     </ul>
                 </div>
             </div>    
